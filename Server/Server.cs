@@ -1,11 +1,21 @@
 ﻿using System;
 // using MongoDB.Driver;
 using System.Runtime.Remoting;
+using Common;
 
 namespace Server
 {
+    class Remote : MarshalByRefObject, IRemote
+    {
+        public string Hello()
+        {
+            Console.WriteLine("SERVER - Hello called");
+            return "CLIENT - Hello .NET client!";
+        }
+    }
     class Server
     {
+
         static void Main(string[] args)
         {
             // MongoClient dbClient = new MongoClient("mongodb://localhost:27017");
@@ -25,6 +35,7 @@ namespace Server
             Console.ReadLine();
         }
     }
+
 }
 
 

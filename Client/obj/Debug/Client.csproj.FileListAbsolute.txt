@@ -11,3 +11,6 @@ C:\Users\Minda\Desktop\FEUP-TDIN\Client\obj\Debug\Client.pdb
 C:\Users\Minda\Desktop\FEUP-TDIN\Client\bin\Debug\Client.exe.config
 C:\Users\Minda\Desktop\FEUP-TDIN\Client\bin\Debug\Client.exe
 C:\Users\Minda\Desktop\FEUP-TDIN\Client\bin\Debug\Client.pdb
+C:\Users\Minda\Desktop\FEUP-TDIN\Client\bin\Debug\Common.dll
+C:\Users\Minda\Desktop\FEUP-TDIN\Client\bin\Debug\Common.pdb
+C:\Users\Minda\Desktop\FEUP-TDIN\Client\obj\Debug\Client.csproj.CopyComplete

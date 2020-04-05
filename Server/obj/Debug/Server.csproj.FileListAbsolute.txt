@@ -53,3 +53,6 @@ C:\Users\Minda\Desktop\FEUP-TDIN\Server\bin\Debug\Server.exe
 C:\Users\Minda\Desktop\FEUP-TDIN\Server\bin\Debug\Server.pdb
 C:\Users\Minda\Desktop\FEUP-TDIN\Server\obj\Debug\Server.csprojAssemblyReference.cache
 C:\Users\Minda\Desktop\FEUP-TDIN\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+C:\Users\Minda\Desktop\FEUP-TDIN\Server\bin\Debug\Common.dll
+C:\Users\Minda\Desktop\FEUP-TDIN\Server\bin\Debug\Common.pdb
+C:\Users\Minda\Desktop\FEUP-TDIN\Server\obj\Debug\Server.csproj.CopyComplete

@@ -2,7 +2,7 @@
 
 namespace Common
 {
-    public interface Common
+    public interface IRemote
     {
         string Hello();
     }
