@@ -1,5 +1,5 @@
 ﻿using System;
-using MongoDB.Driver;
+// using MongoDB.Driver;
 using System.Runtime.Remoting;
 
 namespace Server
@@ -23,20 +23,6 @@ namespace Server
             Console.WriteLine("Press return to exit");
 
             Console.ReadLine();
-        }
-    }
-
-    public class MyService : MarshalByRefObject
-    {
-        public MyService()
-        {
-            Console.WriteLine("Remote Connected");
-        }
-
-        public string Hello()
-        {
-            Console.WriteLine("SERVER - Hello called");
-            return "Hello .NET client!";
         }
     }
 }

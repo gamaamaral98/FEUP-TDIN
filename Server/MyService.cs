@@ -1,15 +1,15 @@
 using System;
 
-public class MyService : MarshalByRefObject
+public class Remote : MarshalByRefObject
 {
-    public MyService()
+    public Remote()
     {
-        Console.WriteLine("Constructor called");
+        Console.WriteLine("Service Created");
     }
 
     public string Hello()
     {
         Console.WriteLine("SERVER - Hello called");
-        return "Hello .NET client!";
+        return "CLIENT - Hello .NET client!";
     }
 }

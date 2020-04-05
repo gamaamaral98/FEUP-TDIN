@@ -13,18 +13,9 @@ namespace Client
         static void Main(string[] args)
         {
             RemotingConfiguration.Configure("Client.exe.config", false);
-            MyService obj = new MyService();
+            Remote obj = new Remote();
             Console.WriteLine(obj.Hello());
             Console.ReadLine();
         }
-    }
-
-    public class MyService : MarshalByRefObject
-    {
-        public string Hello()
-        {
-            return null;
-        }
-
     }
 }

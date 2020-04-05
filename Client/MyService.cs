@@ -2,7 +2,7 @@ using System;
 
 namespace Client
 {
-    public class MyService : MarshalByRefObject
+    public class Remote : MarshalByRefObject
     {
         public string Hello()
         {
