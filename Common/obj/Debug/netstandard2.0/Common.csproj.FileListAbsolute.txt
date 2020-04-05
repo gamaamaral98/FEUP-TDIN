@@ -1,0 +1,9 @@
+C:\Users\Minda\Desktop\FEUP-TDIN\Common\bin\Debug\netstandard2.0\Common.deps.json
+C:\Users\Minda\Desktop\FEUP-TDIN\Common\bin\Debug\netstandard2.0\Common.dll
+C:\Users\Minda\Desktop\FEUP-TDIN\Common\bin\Debug\netstandard2.0\Common.pdb
+C:\Users\Minda\Desktop\FEUP-TDIN\Common\obj\Debug\netstandard2.0\Common.csprojAssemblyReference.cache
+C:\Users\Minda\Desktop\FEUP-TDIN\Common\obj\Debug\netstandard2.0\Common.csproj.CoreCompileInputs.cache
+C:\Users\Minda\Desktop\FEUP-TDIN\Common\obj\Debug\netstandard2.0\Common.AssemblyInfoInputs.cache
+C:\Users\Minda\Desktop\FEUP-TDIN\Common\obj\Debug\netstandard2.0\Common.AssemblyInfo.cs
+C:\Users\Minda\Desktop\FEUP-TDIN\Common\obj\Debug\netstandard2.0\Common.dll
+C:\Users\Minda\Desktop\FEUP-TDIN\Common\obj\Debug\netstandard2.0\Common.pdb

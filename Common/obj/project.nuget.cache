@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "3xY055BCP1UazEJyrdohKTRdkXwSxhbX/YrcbbawR9MPN8AbRDp2zP/PT38oBnf7G1lglXJVUorL4ggPp3+4og==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Minda\\Desktop\\FEUP-TDIN\\Common\\Common.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Minda\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Minda\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
