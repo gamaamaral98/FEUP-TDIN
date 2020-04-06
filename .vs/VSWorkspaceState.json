@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\RemServerCallClient",
+    "\\RemServerCallClient\\Server"
   ],
-  "SelectedNode": "\\Client",
+  "SelectedNode": "\\RemServerCallClient\\Server\\Server.cs",
   "PreviewInSolutionExplorer": false
 }
