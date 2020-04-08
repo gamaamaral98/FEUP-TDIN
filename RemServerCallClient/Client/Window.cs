@@ -9,6 +9,7 @@ namespace Client
     {
         int port;
         ISingleServer server;
+        RemMessage r;
 
         public Window(int Port)
         {
@@ -34,6 +35,25 @@ namespace Client
             else
                 invalidLoginLabel.Visible = true;
 
+        }
+
+        public void ShowChatRequest(String username) {
+            return;
+        }
+
+        public void RequestAccepted(String username, String address)
+        {
+            return;
+        }
+
+        public void AddActiveUser(String username, String address)
+        {
+            return;
+        }
+
+        public void RequestRefused(String username)
+        {
+            return;
         }
     }
     class R
@@ -77,9 +97,30 @@ namespace Client
             win = form;
         }
 
+        public void ReceiveRequest(String username)
+        {
+            win.ShowChatRequest(username);
+        }
+
+        public void AcceptConversation(String username, String address)
+        {
+            win.RequestAccepted(username, address);
+        }
+
+        public void ReceiveAdress(String username, String address)
+        {
+            win.AddActiveUser(username, address);
+        }
+
+        public void RefuseConversation(string username)
+        {
+            win.RequestRefused(username);
+        }
+
         public void SomeMessage(string message)
         {
             throw new NotImplementedException();
         }
     }
+
 }

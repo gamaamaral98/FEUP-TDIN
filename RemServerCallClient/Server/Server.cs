@@ -68,16 +68,21 @@ public class SingleServer : MarshalByRefObject, ISingleServer {
 
     public void InviteToConversation(String sender, String receiver)
     {
-
+        IClientRem rem = (IClientRem)RemotingServices.Connect(typeof(IClientRem), (string)onlineUsers[receiver]);
+        rem.ReceiveRequest(sender);
     }
 
     public void AcceptConversation(String sender, String receiver)
     {
-
+        IClientRem remSender = (IClientRem)RemotingServices.Connect(typeof(IClientRem), (string)onlineUsers[sender]);
+        IClientRem remReceiver = (IClientRem)RemotingServices.Connect(typeof(IClientRem), (string)onlineUsers[receiver]);
+        remSender.AcceptConversation(receiver, (string)onlineUsers[receiver]);
+        remReceiver.ReceiveAdress(sender, (string)onlineUsers[sender]);
     }
 
     public void RefuseConversation(String sender, String receiver)
     {
-
+        IClientRem remSender = (IClientRem)RemotingServices.Connect(typeof(IClientRem), (string)onlineUsers[sender]);
+        remSender.RefuseConversation(receiver);
     }
 }

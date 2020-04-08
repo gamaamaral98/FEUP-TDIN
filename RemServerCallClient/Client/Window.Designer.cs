@@ -112,7 +112,7 @@
             this.Controls.Add(this.welcomeLabel);
             this.Controls.Add(this.signIn);
             this.Name = "Window";
-            this.Text = "Tallo";
+            this.Text = "TDIN Chat Service";
             this.Load += new System.EventHandler(this.Window_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
