@@ -9,7 +9,6 @@ namespace Client
     {
         int port;
         ISingleServer server;
-        RemMessage r;
 
         public Window(int Port)
         {
@@ -29,7 +28,7 @@ namespace Client
                 invalidLoginLabel.Visible = false;
                 server.RegisterAddress(username.Text, "tcp://localhost:" + port.ToString() + "/Message");
                 this.Hide();
-                //ChatRoom chatRoom = new ChatRoom(server, username.Text);
+                //Chat chatRoom = new Chat(server, username.Text);
                 //chatRoom.Show();
             }
             else
@@ -83,44 +82,6 @@ namespace Client
         }
     }
 
-    public class RemMessage : MarshalByRefObject, IClientRem
-    {
-        private Window win;
 
-        public override object InitializeLifetimeService()
-        {
-            return null;
-        }
-
-        public void PutMyForm(Window form)
-        {
-            win = form;
-        }
-
-        public void ReceiveRequest(String username)
-        {
-            win.ShowChatRequest(username);
-        }
-
-        public void AcceptConversation(String username, String address)
-        {
-            win.RequestAccepted(username, address);
-        }
-
-        public void ReceiveAdress(String username, String address)
-        {
-            win.AddActiveUser(username, address);
-        }
-
-        public void RefuseConversation(string username)
-        {
-            win.RequestRefused(username);
-        }
-
-        public void SomeMessage(string message)
-        {
-            throw new NotImplementedException();
-        }
-    }
 
 }

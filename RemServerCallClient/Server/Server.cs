@@ -14,6 +14,8 @@ class Server {
 }
 
 public class SingleServer : MarshalByRefObject, ISingleServer {
+
+    public event AlterDelegate alterEvent;
     Hashtable onlineUsers = new Hashtable();
     
     MongoClient dbClient;

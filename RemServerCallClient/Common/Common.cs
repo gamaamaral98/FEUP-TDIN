@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
+public enum Operation { Add, Remove};
+public delegate void AlterDelegate(Operation op, String username);
+
 [Serializable]
 public class Message
 {
@@ -91,11 +94,22 @@ public class Tab
         textBox.SelectionFont = new Font(textBox.Font, FontStyle.Regular);
         textBox.AppendText(msg + Environment.NewLine);
     }
+
+    public void NewMessages()
+    {
+        page.Text = "----- " + title + " -----";
+    }
+
+    public void MessagesRead()
+    {
+        page.Text = title;
+    }
 }
 
 
 
 public interface ISingleServer {
+    event AlterDelegate alterEvent;
     int RegisterAddress(String username, string address);
     int InitiateDB();
     int Login(String username, string address);
@@ -109,9 +123,25 @@ public interface ISingleServer {
 
 public interface IClientRem {
     void ReceiveRequest(String username);
-    void SomeMessage(string message);
+    void SomeMessage(Message message);
     void AcceptConversation(String username, String address);
     void RefuseConversation(String username);
     void ReceiveAdress(String username, String Address);
 
+}
+
+public class AlterEventRepeater : MarshalByRefObject
+{
+    public event AlterDelegate alterEvent;
+
+    public override object InitializeLifetimeService()
+    {
+        return null;
+    }
+
+    public void Repeater(Operation op, String username)
+    {
+        if (alterEvent != null)
+            alterEvent(op, username);
+    }
 }
