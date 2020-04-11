@@ -28,8 +28,8 @@ namespace Client
                 invalidLoginLabel.Visible = false;
                 server.RegisterAddress(username.Text, "tcp://localhost:" + port.ToString() + "/Message");
                 this.Hide();
-                //Chat chatRoom = new Chat(server, username.Text);
-                //chatRoom.Show();
+                Chat chatRoom = new Chat(server, username.Text, port.ToString());
+                chatRoom.Show();
             }
             else
                 invalidLoginLabel.Visible = true;

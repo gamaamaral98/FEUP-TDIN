@@ -155,7 +155,7 @@ namespace Client
             this.Controls.Add(this.onlineUsersGroup);
             this.Controls.Add(this.sendBtn);
             this.Controls.Add(this.msgToSend);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            //this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Chat";
             this.Text = "Chat";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChatRoom_FormClosed);
