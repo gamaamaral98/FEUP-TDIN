@@ -42,20 +42,14 @@ namespace Client
             this.address = "tcp://localhost:" + port.ToString() + "/Message";
             this.Text = " Chat - " + username;
             onlineUsers.View = View.List;
-            groupChats.View = View.List;
             activeUsers = new Hashtable();
             chatTabs = new Hashtable();
-            groupChatsList = new List<string>();
             UpdateOnlineUsers();
             evRepeater = new AlterEventRepeater();
             evRepeater.alterEvent += new AlterDelegate(DoAlterations);
             server.alterEvent += new AlterDelegate(evRepeater.Repeater);
             r = (RemMessage)RemotingServices.Connect(typeof(RemMessage), "tcp://localhost:" + port.ToString() + "/Message");    // connect to the registered my remote object here
             r.PutMyForm(this);
-            groupChatActive = false;
-
-            selectedGroup = null;
-            inviteToGroupChat = false;
         }
 
         public void UpdateOnlineUsers()
@@ -117,7 +111,6 @@ namespace Client
         private void onlineUsers_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
             String tabUsername = e.Item.Text;
-            inviteToGroup.Enabled = false;
             Console.WriteLine(inviteToGroupChat);
             if (inviteToGroupChat && onlineUsers.SelectedItems.Count != 0)
             {
@@ -276,33 +269,6 @@ namespace Client
             else
                 msgToSend.Enabled = true;
             startChat.Enabled = false;
-        }
-
-
-        private void groupChats_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
-        {
-            String groupChatName = e.Item.Text;
-            if (groupChats.SelectedItems.Count == 0)
-            {
-                joinGroupChat.Enabled = false;
-                inviteToGroup.Enabled = false;
-            }
-            else if (chatTabs.Contains(groupChatName))
-            {
-                selectedGroup = groupChatName;
-                inviteToGroup.Enabled = true;
-                groupChatActive = true;
-                Tab tab = (Tab)chatTabs[groupChatName];
-                int index = activeConversations.TabPages.IndexOf(tab.page);
-                activeConversations.SelectedIndex = index;
-                joinGroupChat.Enabled = false;
-                if (tab.status)
-                    DisableSend();
-                else
-                    msgToSend.Enabled = true;
-            }
-            else
-                joinGroupChat.Enabled = true;
         }
 
     }

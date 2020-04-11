@@ -36,24 +36,11 @@ namespace Client
 
         }
 
-        public void ShowChatRequest(String username) {
+        public void register(object sender, EventArgs e) {
             return;
         }
 
-        public void RequestAccepted(String username, String address)
-        {
-            return;
-        }
 
-        public void AddActiveUser(String username, String address)
-        {
-            return;
-        }
-
-        public void RequestRefused(String username)
-        {
-            return;
-        }
     }
     class R
     {
