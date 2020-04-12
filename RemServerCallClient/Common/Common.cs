@@ -111,7 +111,6 @@ public class Tab
 public interface ISingleServer {
     event AlterDelegate alterEvent;
     int RegisterAddress(String username, string address);
-    int InitiateDB();
     int Login(String username, string address);
     int Register(String username, string address);
     int Logout(string username);

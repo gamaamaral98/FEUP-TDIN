@@ -4,6 +4,7 @@ using System.Runtime.Remoting;
 using System.Collections.Generic;
 using System.Threading;
 using MongoDB.Driver;
+using MongoDB.Bson;
 
 class Server {
   static void Main(string[] args) {
@@ -13,21 +14,20 @@ class Server {
   }
 }
 
+public class UserModel
+{
+    public ObjectId Id { get; set; }
+    public string username { get; set; }
+    public string password { get; set; }
+}
+
 public class SingleServer : MarshalByRefObject, ISingleServer {
 
     public event AlterDelegate alterEvent;
     Hashtable onlineUsers = new Hashtable();
     
-    MongoClient dbClient;
-    IMongoDatabase database;
-
-    public int InitiateDB()
-    {
-        dbClient = new MongoClient("mongodb://localhost:27017");
-        database = dbClient.GetDatabase("TDIN_Chat");
-
-        return 0;
-    }
+    static MongoClient dbClient = new MongoClient("mongodb://localhost:27017");
+    IMongoDatabase database = dbClient.GetDatabase("TDIN_Chat");
 
     public int RegisterAddress(String username, string address)
     {
@@ -45,7 +45,19 @@ public class SingleServer : MarshalByRefObject, ISingleServer {
 
     public int Login(string username, string password)
     {
-        return 0;
+        var collection = database.GetCollection<UserModel>("User");
+        var filter = Builders<UserModel>.Filter.Eq("username", username);
+        var user = collection.Find(filter).FirstOrDefault();
+        
+        if(user != null)
+        {
+            if(user.password == password)
+            {
+                return 0;
+            }
+        }
+
+        return 1;
     }
 
     public int Register(string username, string password)
@@ -55,6 +67,7 @@ public class SingleServer : MarshalByRefObject, ISingleServer {
 
     public int Logout(string username)
     {
+        onlineUsers.Remove(username);
         return 0;
     }
 

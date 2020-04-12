@@ -87,3 +87,4 @@ C:\Users\Francisco\Desktop\FEUP-TDIN\RemServerCallClient\Client\obj\Debug\Client
 C:\Users\Francisco\Desktop\FEUP-TDIN\RemServerCallClient\Client\obj\Debug\Client.exe
 C:\Users\Francisco\Desktop\FEUP-TDIN\RemServerCallClient\Client\obj\Debug\Client.pdb
 C:\Users\Francisco\Desktop\FEUP-TDIN\RemServerCallClient\Client\obj\Debug\Client.Chat.resources
+C:\Users\Jo\Desktop\FEUP-TDIN\RemServerCallClient\Client\obj\Debug\Client.Chat.resources
