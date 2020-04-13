@@ -64,8 +64,6 @@ public class SingleServer : MarshalByRefObject, ISingleServer {
             return 0;
         }
         
-        Register(username, password);
-
         return 3;
     }
 

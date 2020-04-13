@@ -21,6 +21,20 @@ namespace Client
             server = (ISingleServer)R.New(typeof(ISingleServer));  // get reference to the singleton remote object
         }
 
+        public int ShowRegisterRequest(string username, string password)
+        {
+            DialogResult dialogResult = MessageBox.Show("Do you wish to register with this username: " + username + "?", "Register Request", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                server.Register(username, password);
+                return 0;
+            }
+            else if (dialogResult == DialogResult.No)
+                return 1;
+
+            return 1;
+        }
+
         private void signOn(object sender, EventArgs e)
         {
             int login = server.Login(username.Text, password.Text);
@@ -44,12 +58,18 @@ namespace Client
             }
             if(login == 3)
             {
-                invalidLoginLabel.Text = "Registering User";
-                invalidLoginLabel.Visible = true;
-                server.RegisterAddress(username.Text, "tcp://localhost:" + port.ToString() + "/Message");
-                this.Hide();
-                Chat chatRoom = new Chat(server, username.Text, port.ToString());
-                chatRoom.Show();
+                if(ShowRegisterRequest(username.Text, password.Text) == 0)
+                {
+                    server.RegisterAddress(username.Text, "tcp://localhost:" + port.ToString() + "/Message");
+                    this.Hide();
+                    Chat chatRoom = new Chat(server, username.Text, port.ToString());
+                    chatRoom.Show();
+                }
+                else
+                {
+                    invalidLoginLabel.Text = "User not found!";
+                    invalidLoginLabel.Visible = true;
+                } 
             }
         }
 
