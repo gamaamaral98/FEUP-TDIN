@@ -23,7 +23,8 @@ namespace Client
 
         private void signOn(object sender, EventArgs e)
         {
-            if (server.Login(username.Text, password.Text) != 1)
+            int login = server.Login(username.Text, password.Text);
+            if(login == 0)
             {
                 invalidLoginLabel.Visible = false;
                 server.RegisterAddress(username.Text, "tcp://localhost:" + port.ToString() + "/Message");
@@ -31,15 +32,26 @@ namespace Client
                 Chat chatRoom = new Chat(server, username.Text, port.ToString());
                 chatRoom.Show();
             }
-            else
+            if(login == 1)
+            {
+                invalidLoginLabel.Text = "Incorrect Password!";
                 invalidLoginLabel.Visible = true;
-
+            }
+            if(login == 2)
+            {
+                invalidLoginLabel.Text = "User Already Logged In!";
+                invalidLoginLabel.Visible = true;
+            }
+            if(login == 3)
+            {
+                invalidLoginLabel.Text = "Registering User";
+                invalidLoginLabel.Visible = true;
+                server.RegisterAddress(username.Text, "tcp://localhost:" + port.ToString() + "/Message");
+                this.Hide();
+                Chat chatRoom = new Chat(server, username.Text, port.ToString());
+                chatRoom.Show();
+            }
         }
-
-        public void register(object sender, EventArgs e) {
-            return;
-        }
-
 
     }
     class R

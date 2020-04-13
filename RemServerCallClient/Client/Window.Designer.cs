@@ -43,7 +43,7 @@
             this.signIn.Name = "signIn";
             this.signIn.Size = new System.Drawing.Size(75, 23);
             this.signIn.TabIndex = 0;
-            this.signIn.Text = "Test";
+            this.signIn.Text = "Login";
             this.signIn.UseVisualStyleBackColor = true;
             this.signIn.Click += new System.EventHandler(this.signOn);
             // 

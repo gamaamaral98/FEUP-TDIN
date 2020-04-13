@@ -43,25 +43,39 @@ public class SingleServer : MarshalByRefObject, ISingleServer {
         }
     }
 
+    /*
+     * 0 for correct login
+     * 1 for correct username, wrong password
+     * 2 for user already logged
+     * 3 for non existent user
+     */
     public int Login(string username, string password)
     {
         var collection = database.GetCollection<UserModel>("User");
         var filter = Builders<UserModel>.Filter.Eq("username", username);
         var user = collection.Find(filter).FirstOrDefault();
-        
+
         if(user != null)
         {
-            if(user.password == password)
-            {
-                return 0;
-            }
-        }
+            if (user.password != password) return 1;
 
-        return 1;
+            else if (onlineUsers.Contains(username)) return 2;
+
+            return 0;
+        }
+        
+        Register(username, password);
+
+        return 3;
     }
 
     public int Register(string username, string password)
     {
+        var collection = database.GetCollection<UserModel>("User");
+        UserModel newUser = new UserModel();
+        newUser.username = username;
+        newUser.password = password;
+        collection.InsertOneAsync(newUser);
         return 0;
     }
 
