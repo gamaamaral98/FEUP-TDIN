@@ -26,8 +26,8 @@ public class SingleServer : MarshalByRefObject, ISingleServer {
     public event AlterDelegate alterEvent;
     Hashtable onlineUsers = new Hashtable();
 
-    //static MongoClient dbClient = new MongoClient("mongodb://localhost:27017");
-    //IMongoDatabase database = dbClient.GetDatabase("TDIN_Chat");
+    static MongoClient dbClient = new MongoClient("mongodb://localhost:27017");
+    IMongoDatabase database = dbClient.GetDatabase("TDIN_Chat");
 
     public int RegisterAddress(String username, string address)
     {
@@ -39,6 +39,7 @@ public class SingleServer : MarshalByRefObject, ISingleServer {
             Console.WriteLine("[SingleServer]: Sending active clients list");
             onlineUsers.Add(username, address);
             Console.WriteLine("[SingleServer]: Registered " + address);
+            alert(Operation.Add, username);
             return 0;
         }
     }
@@ -51,30 +52,29 @@ public class SingleServer : MarshalByRefObject, ISingleServer {
      */
     public int Login(string username, string password)
     {
-        //var collection = database.GetCollection<UserModel>("User");
+        var collection = database.GetCollection<UserModel>("User");
         var filter = Builders<UserModel>.Filter.Eq("username", username);
-        //var user = collection.Find(filter).FirstOrDefault();
+        var user = collection.Find(filter).FirstOrDefault();
 
-        //if(user != null)
-        //{
-        //    if (user.password != password) return 1;
+        if(user != null)
+        {
+            if (user.password != password) return 1;
 
-        //   else if (onlineUsers.Contains(username)) return 2;
+           else if (onlineUsers.Contains(username)) return 2;
 
-        //    return 0;
-        //}
+            return 0;
+        }
 
-        //return 3;
-        return 0;
+        return 3;
     }
 
     public int Register(string username, string password)
     {
-        //var collection = database.GetCollection<UserModel>("User");
+        var collection = database.GetCollection<UserModel>("User");
         UserModel newUser = new UserModel();
         newUser.username = username;
         newUser.password = password;
-        //collection.InsertOneAsync(newUser);
+        collection.InsertOneAsync(newUser);
         return 0;
     }
 
@@ -82,6 +82,7 @@ public class SingleServer : MarshalByRefObject, ISingleServer {
     {
         onlineUsers.Remove(username);
         Console.WriteLine(username + " disconnected");
+        alert(Operation.Remove, username);
         return 0;
     }
 
@@ -113,5 +114,27 @@ public class SingleServer : MarshalByRefObject, ISingleServer {
     {
         IClientRem remSender = (IClientRem)RemotingServices.Connect(typeof(IClientRem), (string)onlineUsers[sender]);
         remSender.RefuseConversation(receiver);
+    }
+
+    void alert(Operation op, String username)
+    {
+        if (alterEvent != null)
+        {
+            Delegate[] invkList = alterEvent.GetInvocationList();
+
+            foreach (AlterDelegate handler in invkList)
+            {
+                new Thread(() => {
+                    try
+                    {
+                        handler(op, username);
+                    }
+                    catch (Exception)
+                    {
+                        alterEvent -= handler; 
+                    }
+                }).Start();
+            }
+        }
     }
 }

@@ -18,6 +18,7 @@ namespace Client
             this.onlineUsers = new System.Windows.Forms.ListView();
             this.startChat = new System.Windows.Forms.Button();
             this.listMessages = new System.Windows.Forms.ListBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.onlineUsersGroup.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,9 +67,9 @@ namespace Client
             // startChat
             // 
             this.startChat.Enabled = false;
-            this.startChat.Location = new System.Drawing.Point(19, 340);
+            this.startChat.Location = new System.Drawing.Point(86, 340);
             this.startChat.Name = "startChat";
-            this.startChat.Size = new System.Drawing.Size(134, 37);
+            this.startChat.Size = new System.Drawing.Size(67, 37);
             this.startChat.TabIndex = 1;
             this.startChat.Text = "New Chat";
             this.startChat.UseVisualStyleBackColor = true;
@@ -82,12 +83,23 @@ namespace Client
             this.listMessages.Size = new System.Drawing.Size(388, 316);
             this.listMessages.TabIndex = 6;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(19, 340);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(61, 37);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Logout";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Chat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.ClientSize = new System.Drawing.Size(574, 387);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.listMessages);
             this.Controls.Add(this.startChat);
             this.Controls.Add(this.onlineUsersGroup);
@@ -130,5 +142,6 @@ namespace Client
         private System.Windows.Forms.ListView onlineUsers;
         private System.Windows.Forms.Button startChat;
         private System.Windows.Forms.ListBox listMessages;
+        private System.Windows.Forms.Button button1;
     }
 }

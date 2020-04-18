@@ -229,6 +229,10 @@ namespace Client
             startChat.Enabled = false;
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 
     public class RemMessage : MarshalByRefObject, IClientRem
