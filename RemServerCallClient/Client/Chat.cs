@@ -205,7 +205,11 @@ namespace Client
         public void RequestRefused(String username)
         {
             Tab tab = (Tab)chatTabs[username];
-            this.listMessages.Items.Add(tab.RefuseConversation1(username));
+            BeginInvoke(new Action(() =>
+            {
+                this.listMessages.Items.Add(tab.RefuseConversation1(username));
+                this.listMessages.Items.Add("");
+            }));
         }
 
         public void AddActiveUser(String username, String address)
