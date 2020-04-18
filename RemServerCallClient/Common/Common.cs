@@ -22,22 +22,14 @@ public class Message
     }
 }
 
-public class Tab
+public class Item
 {
-    public TabPage page;
+    public String title;
     public RichTextBox textBox;
-    public Boolean status; // online/offline
-    String title;
-
-    public Tab(String title)
+    public Boolean status;
+    public Item(String title)
     {
-        this.page = new TabPage(title);
         this.title = title;
-        this.textBox = new RichTextBox();
-        this.textBox.Multiline = true;
-        this.textBox.ReadOnly = true;
-        this.page.Controls.Add(textBox);
-        this.textBox.Dock = DockStyle.Fill;
         this.status = true;
     }
 
@@ -90,19 +82,59 @@ public class Tab
     {
         textBox.SelectionAlignment = alignment;
         textBox.SelectionFont = new Font(textBox.Font, FontStyle.Bold);
-        textBox.AppendText("[" + username + "]: ");
+        textBox.AppendText("" + username + " - ");
         textBox.SelectionFont = new Font(textBox.Font, FontStyle.Regular);
         textBox.AppendText(msg + Environment.NewLine);
     }
 
-    public void NewMessages()
+}
+
+public class Tab
+{
+    public Boolean status; // online/offline
+    String title;
+
+    public Tab(String title)
     {
-        page.Text = "----- " + title + " -----";
+        this.title = title;
+        this.status = true;
     }
 
-    public void MessagesRead()
+    public String AddReceiverText1(String msg, String username)
     {
-        page.Text = title;
+        return FormatMessage1(msg, username, HorizontalAlignment.Left);
+    }
+
+    public String AddSenderText1(String msg, String username)
+    {
+        return FormatMessage1(msg, username, HorizontalAlignment.Right);
+    }
+
+    public String ConversationRequest1()
+    {
+        return "Conversation request sent." + Environment.NewLine;
+    }
+
+    public String AcceptConversation1(String username)
+    {
+        return username + " accepted your request." + Environment.NewLine + Environment.NewLine;
+    }
+
+    public String RefuseConversation1(String username)
+    {
+        return username + " refused your request." + Environment.NewLine + Environment.NewLine;
+    }
+
+    public void ChangeMsgStatus(String username)
+    {
+        this.status = true;
+    }
+
+    private String FormatMessage1(String msg, String username, HorizontalAlignment alignment)
+    {
+        String st;
+        st = "" + username + " - " + msg + Environment.NewLine;
+        return st;
     }
 }
 
