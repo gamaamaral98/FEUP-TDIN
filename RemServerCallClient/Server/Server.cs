@@ -117,7 +117,7 @@ public class SingleServer : MarshalByRefObject, ISingleServer {
         remSender.RefuseConversation(receiver);
     }
 
-    void alert(Operation op, String username)
+    void alert(Operation operation, String username)
     {
         if (alterEvent != null)
         {
@@ -128,7 +128,7 @@ public class SingleServer : MarshalByRefObject, ISingleServer {
                 new Thread(() => {
                     try
                     {
-                        handler(op, username);
+                        handler(operation, username);
                     }
                     catch (Exception)
                     {

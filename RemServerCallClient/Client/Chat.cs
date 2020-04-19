@@ -23,7 +23,7 @@ namespace Client
         AlterEventRepeater evRepeater;
         RemMessage r;
 
-        List<string> usersList;
+        List<string> list;
         Hashtable activeUsers;
         Hashtable chatTabs;
         String activeUser;
@@ -42,7 +42,7 @@ namespace Client
             chatTabs = new Hashtable();
             UpdateOnlineUsers();
             evRepeater = new AlterEventRepeater();
-            evRepeater.alterEvent += new AlterDelegate(DoAlterations);
+            evRepeater.alterEvent += new AlterDelegate(Update);
             server.alterEvent += new AlterDelegate(evRepeater.Repeater);
             r = (RemMessage)RemotingServices.Connect(typeof(RemMessage), "tcp://localhost:" + port.ToString() + "/Message");    // connect to the registered my remote object here
             r.PutMyForm(this);
@@ -50,37 +50,36 @@ namespace Client
 
         public void UpdateOnlineUsers()
         {
-            usersList = server.getUsers();
-            foreach (string key in usersList)
+            list = server.getUsers();
+            foreach (string key in list)
             {
                 if (key != username)
                     onlineUsers.Items.Add(key.ToString());
             }
         }
 
-        public void DoAlterations(Operation op, String username)
+        public void Update(Operation op, String username)
         {
             LVAddDelegate lvAdd;
             LVRemDelegate lvRem;
-
-            switch (op)
+            
+            if(op == Operation.Add)
             {
-                case Operation.Add:
-                    usersList.Add(username);
-                    lvAdd = new LVAddDelegate(onlineUsers.Items.Add);
-                    ListViewItem lvItem = new ListViewItem(new string[] { username });
-                    BeginInvoke(lvAdd, new object[] { lvItem });
-                    break;
-                case Operation.Remove:
-                    lvRem = new LVRemDelegate(RemoveUser);
-                    BeginInvoke(lvRem, new object[] { username });
-                    break;
+                list.Add(username);
+                lvAdd = new LVAddDelegate(onlineUsers.Items.Add);
+                ListViewItem lvItem = new ListViewItem(new string[] { username });
+                BeginInvoke(lvAdd, new object[] { lvItem });
+            }
+            else if (op == Operation.Remove)
+            {
+                lvRem = new LVRemDelegate(RemoveUser);
+                BeginInvoke(lvRem, new object[] { username });
             }
         }
 
         private void RemoveUser(String username)
         {
-            usersList.Remove(username);
+            list.Remove(username);
             if (chatTabs.Contains(username))
             {
                 Tab tab = (Tab)chatTabs[username];
@@ -100,7 +99,7 @@ namespace Client
         private void ChatRoom_FormClosed(object sender, FormClosedEventArgs e)
         {
             server.alterEvent -= new AlterDelegate(evRepeater.Repeater);
-            evRepeater.alterEvent -= new AlterDelegate(DoAlterations);
+            evRepeater.alterEvent -= new AlterDelegate(Update);
             DisableSend();
             server.Logout(username);
         }
@@ -123,10 +122,10 @@ namespace Client
                 startChat.Enabled = true;
         }
 
-        public void PutMessage(Message msg)
+        public void WriteMessage(Message msg)
         {
             if (InvokeRequired)
-                BeginInvoke((MethodInvoker)delegate { PutMessage(msg); });
+                BeginInvoke((MethodInvoker)delegate { WriteMessage(msg); });
             else
             {
                 Tab tab;
@@ -184,7 +183,6 @@ namespace Client
             else if (dialogResult == DialogResult.No)
                 server.RefuseConversation(requester, username);
         }
-
         public void RequestAccepted(String username, String address)
         {
         
@@ -205,11 +203,7 @@ namespace Client
         public void RequestRefused(String username)
         {
             Tab tab = (Tab)chatTabs[username];
-            BeginInvoke(new Action(() =>
-            {
-                this.listMessages.Items.Add(tab.RefuseConversation1(username));
-                this.listMessages.Items.Add("");
-            }));
+            this.listMessages.Items.Add(tab.RefuseConversation1(username));
         }
 
         public void AddActiveUser(String username, String address)
@@ -275,7 +269,7 @@ namespace Client
 
         public void SomeMessage(Message message)
         {
-            win.PutMessage(message);
+            win.WriteMessage(message);
         }
     }
 
