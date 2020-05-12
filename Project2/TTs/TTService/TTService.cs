@@ -75,5 +75,55 @@ namespace TTService {
             }
             return result;
         }
+
+        public DataTable GetSupervisors()
+        {
+            DataTable result = new DataTable("Supervisors");
+
+            using (SqlConnection c = new SqlConnection(database))
+            {
+                try
+                {
+                    c.Open();
+                    string sql = "select * from Supervisors";
+                    SqlCommand cmd = new SqlCommand(sql, c);
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(result);
+                }
+                catch (SqlException)
+                {
+                }
+                finally
+                {
+                    c.Close();
+                }
+            }
+            return result;
+        }
+
+        public DataTable GetSpecializedSupervisors()
+        {
+            DataTable result = new DataTable("SpecializedSupervisors");
+
+            using (SqlConnection c = new SqlConnection(database))
+            {
+                try
+                {
+                    c.Open();
+                    string sql = "select * from SpecializedSupervisors";
+                    SqlCommand cmd = new SqlCommand(sql, c);
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(result);
+                }
+                catch (SqlException)
+                {
+                }
+                finally
+                {
+                    c.Close();
+                }
+            }
+            return result;
+        }
     }
 }

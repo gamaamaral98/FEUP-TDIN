@@ -62,5 +62,14 @@ class TTProxy : ClientBase<ITTService>, ITTService {
   public int AddTicket(string author, string desc) {
     return Channel.AddTicket(author, desc);
   }
+
+    public DataTable GetSupervisors()
+    {
+        return Channel.GetSupervisors();
+    }
+    public DataTable GetSpecializedSupervisors()
+    {
+        return Channel.GetSpecializedSupervisors();
+    }
 }
 

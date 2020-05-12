@@ -16,5 +16,13 @@ namespace TTService {
     [WebGet(UriTemplate="/users", ResponseFormat=WebMessageFormat.Json)]
     [OperationContract]
     DataTable GetUsers();
+
+        [WebGet(UriTemplate = "/supervisors", ResponseFormat = WebMessageFormat.Json)]
+        [OperationContract]
+        DataTable GetSupervisors();
+
+        [WebGet(UriTemplate = "/specializedSupervisors", ResponseFormat = WebMessageFormat.Json)]
+        [OperationContract]
+        DataTable GetSpecializedSupervisors();
   }
 }

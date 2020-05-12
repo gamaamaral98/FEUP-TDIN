@@ -9,3 +9,14 @@ C:\Users\Jo\Desktop\TTs\TTServer\obj\Debug\TTServer.csprojAssemblyReference.cach
 C:\Users\Jo\Desktop\TTs\TTServer\obj\Debug\TTServer.csproj.CopyComplete
 C:\Users\Jo\Desktop\TTs\TTServer\obj\Debug\TTServer.exe
 C:\Users\Jo\Desktop\TTs\TTServer\obj\Debug\TTServer.pdb
+C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTServer\bin\Debug\TTs.mdf
+C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTServer\bin\Debug\TTs_log.ldf
+C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTServer\bin\Debug\TTServer.exe.config
+C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTServer\bin\Debug\TTServer.exe
+C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTServer\bin\Debug\TTServer.pdb
+C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTServer\bin\Debug\TTService.dll
+C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTServer\bin\Debug\TTService.pdb
+C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTServer\obj\Debug\TTServer.csprojAssemblyReference.cache
+C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTServer\obj\Debug\TTServer.csproj.CopyComplete
+C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTServer\obj\Debug\TTServer.exe
+C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTServer\obj\Debug\TTServer.pdb
