@@ -2,10 +2,12 @@
 using System.ServiceModel;
 using System.Windows.Forms;
 using TTService;
+using System.Data.SqlClient;
 
 namespace TTClient {
   public partial class Form1 : Form {
     TTProxy proxy;
+        private SqlConnection con;
 
     public Form1() {
       int k;
@@ -29,6 +31,8 @@ namespace TTClient {
         private void hide_Supervisor()
         {
             label2.Text = "No ticket assigned.";
+            comboBox2.Visible = true;
+            button3.Visible = true;
             label3.Visible = false;
             label6.Visible = false;
             label4.Visible = false;
@@ -48,6 +52,8 @@ namespace TTClient {
             button2.Visible = true;
             comboBox1.Visible = true;
             textBox1.Visible = true;
+            comboBox2.Visible = false;
+            button3.Visible = false;
         }
 
         private void hide_SpecializedSupervisor()
@@ -114,6 +120,12 @@ namespace TTClient {
                 else
                 {
                     hide_Supervisor();
+                    DataTable unassignedTickets = proxy.GetAllUnassignedTickets();
+
+                    comboBox2.DataSource = unassignedTickets.DefaultView;
+                    comboBox2.DisplayMember = "Problem";
+                    comboBox2.BindingContext = this.BindingContext;
+
                     dataGridView1.Visible = false;
                     panel1.Visible = true;
                     panel2.Visible = false;
@@ -152,6 +164,19 @@ namespace TTClient {
             }
 
     }
+
+        private void button3_Click(object sender, System.EventArgs e)
+        {
+            DataTable tickets = proxy.GetAllTickets();
+            DataTable users = proxy.GetUsers();
+
+            var ticket = tickets.Select("Problem = " + "'" + comboBox2.Text + "'");
+            var supervisorId = (listBox1.SelectedIndex - users.Rows.Count).ToString();
+            var ticketId = ticket[0]["Id"].ToString();
+
+            proxy.updateStatus(ticketId);
+            proxy.AssignTicket(ticketId, supervisorId);
+        }
     }
 
     // Manual proxy to the service (in alternative to direct HTTP requests)
@@ -164,8 +189,19 @@ namespace TTClient {
             return Channel.GetTickets(author);
         }
 
-        public int AddTicket(string author, string desc) {
+        public int AddTicket(string author, string desc)
+        {
             return Channel.AddTicket(author, desc);
+        }
+
+        public int AssignTicket(string ticketId, string supervisorId)
+        {
+            return Channel.AssignTicket(ticketId, supervisorId);
+        }
+
+        public int updateStatus(string ticketId)
+        {
+            return Channel.updateStatus(ticketId);
         }
 
         public DataTable GetSupervisors()
@@ -180,6 +216,11 @@ namespace TTClient {
         public DataTable GetAllTickets()
         {
             return Channel.GetAllTickets();
+        }
+
+        public DataTable GetAllUnassignedTickets()
+        {
+            return Channel.GetAllUnassignedTickets();
         }
     
     }

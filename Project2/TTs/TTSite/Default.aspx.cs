@@ -20,7 +20,7 @@ public partial class _Default : Page {
     int id;
 
     if (DropDownList1.SelectedIndex > 0) {
-      if (TextBox1.Text.Length > 0) {
+      if (TextBox1.Text.Length >= 0) {
         id = proxy.AddTicket(DropDownList1.SelectedValue, TextBox1.Text);
         Label1.ForeColor = Color.DarkBlue;
         Label1.Text = "Result: Inserted with Id = " + id;
@@ -37,7 +37,7 @@ public partial class _Default : Page {
   }
 
   protected void Button2_Click(object sender, EventArgs e) {
-    if (DropDownList1.SelectedIndex > 0) {
+    if (DropDownList1.SelectedIndex >= 0) {
       GridView1.DataSource = proxy.GetTickets(DropDownList1.SelectedValue);
       GridView1.DataBind();
       GridView1.Visible = true;
@@ -63,6 +63,16 @@ class TTProxy : ClientBase<ITTService>, ITTService {
     return Channel.AddTicket(author, desc);
   }
 
+    public int AssignTicket(string ticketId, string supervisorId)
+    {
+        return Channel.AssignTicket(ticketId, supervisorId);
+    }
+
+    public int updateStatus(string ticketId)
+    {
+        return Channel.updateStatus(ticketId);
+    }
+
     public DataTable GetSupervisors()
     {
         return Channel.GetSupervisors();
@@ -75,6 +85,11 @@ class TTProxy : ClientBase<ITTService>, ITTService {
     public DataTable GetAllTickets()
     {
         return Channel.GetAllTickets();
+    }
+
+    public DataTable GetAllUnassignedTickets()
+    {
+        return Channel.GetAllUnassignedTickets();
     }
 }
 

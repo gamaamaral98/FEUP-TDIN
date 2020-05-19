@@ -12,6 +12,50 @@ namespace TTService {
             database = String.Format(connection, AppDomain.CurrentDomain.BaseDirectory);
         }
 
+        public int updateStatus(string ticketId)
+        {
+            using (SqlConnection c = new SqlConnection(database))
+            {
+                try
+                {
+                    c.Open();
+                    string sql = "UPDATE TTickets SET Status = " + 2.ToString() + " WHERE Id = " + ticketId; // injection protection
+                    SqlCommand cmd = new SqlCommand(sql, c);                                                       // injection protection
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException)
+                {
+                }
+                finally
+                {
+                    c.Close();
+                }
+            }
+            return 0;
+        }
+
+        public int AssignTicket(string ticketId, string supervisorId)
+        {
+            using (SqlConnection c = new SqlConnection(database))
+            {
+                try
+                {
+                    c.Open();
+                    string sql = "UPDATE Supervisors SET TicketId =" + ticketId + " WHERE Id = " + supervisorId;
+                    SqlCommand cmd = new SqlCommand(sql, c);                                                       // injection protection                                                      // injection protection
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException)
+                {
+                }
+                finally
+                {
+                    c.Close();
+                }
+            }
+            return 0;
+        }
+
         public int AddTicket(string author, string problem) {
             int id = 0;
 
@@ -136,6 +180,31 @@ namespace TTService {
                 {
                     c.Open();
                     string sql = "select * from TTickets";
+                    SqlCommand cmd = new SqlCommand(sql, c);
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(result);
+                }
+                catch (SqlException)
+                {
+                }
+                finally
+                {
+                    c.Close();
+                }
+            }
+            return result;
+        }
+
+        public DataTable GetAllUnassignedTickets()
+        {
+            DataTable result = new DataTable("TTickets");
+
+            using (SqlConnection c = new SqlConnection(database))
+            {
+                try
+                {
+                    c.Open();
+                    string sql = "select * from TTickets where Status = 1";
                     SqlCommand cmd = new SqlCommand(sql, c);
                     SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                     adapter.Fill(result);
