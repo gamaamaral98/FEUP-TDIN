@@ -71,5 +71,10 @@ class TTProxy : ClientBase<ITTService>, ITTService {
     {
         return Channel.GetSpecializedSupervisors();
     }
+
+    public DataTable GetAllTickets()
+    {
+        return Channel.GetAllTickets();
+    }
 }
 

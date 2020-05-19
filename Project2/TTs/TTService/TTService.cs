@@ -125,5 +125,30 @@ namespace TTService {
             }
             return result;
         }
+
+        public DataTable GetAllTickets()
+        {
+            DataTable result = new DataTable("TTickets");
+
+            using (SqlConnection c = new SqlConnection(database))
+            {
+                try
+                {
+                    c.Open();
+                    string sql = "select * from TTickets";
+                    SqlCommand cmd = new SqlCommand(sql, c);
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(result);
+                }
+                catch (SqlException)
+                {
+                }
+                finally
+                {
+                    c.Close();
+                }
+            }
+            return result;
+        }
     }
 }
