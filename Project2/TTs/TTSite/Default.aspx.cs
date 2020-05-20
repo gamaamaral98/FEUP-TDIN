@@ -19,15 +19,15 @@ public partial class _Default : Page {
   protected void Button1_Click(object sender, EventArgs e) {
     int id;
 
-    if (DropDownList1.SelectedIndex > 0) {
-      if (TextBox1.Text.Length >= 0) {
-        id = proxy.AddTicket(DropDownList1.SelectedValue, TextBox1.Text);
+    if (DropDownList1.SelectedIndex >= 0) {
+      if (TextBox1.Text.Length >= 0 && TextBox2.Text.Length >= 0) {
+        id = proxy.AddTicket(DropDownList1.SelectedValue, TextBox1.Text, TextBox2.Text);
         Label1.ForeColor = Color.DarkBlue;
         Label1.Text = "Result: Inserted with Id = " + id;
       }
       else {
         Label1.ForeColor = Color.Red;
-        Label1.Text = "Result: Please describe a problem!";
+        Label1.Text = "Result: Please describe the problem providing title and description!";
       }
     }
     else {
@@ -59,8 +59,8 @@ class TTProxy : ClientBase<ITTService>, ITTService {
     return Channel.GetTickets(author);
   }
 
-  public int AddTicket(string author, string desc) {
-    return Channel.AddTicket(author, desc);
+  public int AddTicket(string author, string desc, string title) {
+    return Channel.AddTicket(author, desc, title);
   }
 
     public int AssignTicket(string ticketId, string supervisorId)

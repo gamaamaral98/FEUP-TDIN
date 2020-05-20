@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 
 namespace TTService {
     public class TTService : ITTService {
@@ -56,16 +57,18 @@ namespace TTService {
             return 0;
         }
 
-        public int AddTicket(string author, string problem) {
+        public int AddTicket(string author, string problem, string title) {
             int id = 0;
 
             using (SqlConnection c = new SqlConnection(database)) {
                 try {
                     c.Open();
-                    string sql = "insert into TTickets(Author, Problem, Answer, Status) values (@a1, @p1, '', 1)"; // injection protection
+                    string sql = "insert into TTickets(Author, Problem, Answer, Status, Title, CreatedAt) values (@a1, @p1, '', 1, @t1, @c1)"; // injection protection
                     SqlCommand cmd = new SqlCommand(sql, c);                                                       // injection protection
                     cmd.Parameters.AddWithValue("@a1", author);                                                    // injection protection
                     cmd.Parameters.AddWithValue("@p1", problem);                                                   // injection protection
+                    cmd.Parameters.AddWithValue("@t1", title);
+                    cmd.Parameters.AddWithValue("@c1", DateTime.Now.ToString("d", CultureInfo.CreateSpecificCulture("en-US")));
                     cmd.ExecuteNonQuery();
                     cmd.CommandText = "select max(Id) from TTickets";
                     id = (int)cmd.ExecuteScalar();
@@ -85,7 +88,7 @@ namespace TTService {
             using (SqlConnection c = new SqlConnection(database)) {
                 try {
                     c.Open();
-                    string sql = "select Id, Problem, Status, Answer from TTickets where Author=@a1";
+                    string sql = "select Id, Problem, Status, Answer, Title, CreatedAt from TTickets where Author=@a1";
                     SqlCommand cmd = new SqlCommand(sql, c);
                     cmd.Parameters.AddWithValue("@a1", author);
                     SqlDataAdapter adapter = new SqlDataAdapter(cmd);
