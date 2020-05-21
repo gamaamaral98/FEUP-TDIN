@@ -68,9 +68,14 @@ class TTProxy : ClientBase<ITTService>, ITTService {
         return Channel.AssignTicket(ticketId, supervisorId);
     }
 
-    public int updateStatus(string ticketId)
+    public int updateStatus(string ticketId, int status)
     {
-        return Channel.updateStatus(ticketId);
+        return Channel.updateStatus(ticketId, status);
+    }
+
+    public int updateAnswer(string ticketId, string answer)
+    {
+        return Channel.updateAnswer(ticketId, answer);
     }
 
     public DataTable GetSupervisors()

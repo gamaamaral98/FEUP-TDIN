@@ -13,18 +13,40 @@ namespace TTService {
             database = String.Format(connection, AppDomain.CurrentDomain.BaseDirectory);
         }
 
-        public int updateStatus(string ticketId)
+        public int updateStatus(string ticketId, int status)
         {
             using (SqlConnection c = new SqlConnection(database))
             {
                 try
                 {
                     c.Open();
-                    string sql = "UPDATE TTickets SET Status = " + 2.ToString() + " WHERE Id = " + ticketId; // injection protection
-                    SqlCommand cmd = new SqlCommand(sql, c);                                                       // injection protection
+                    string sql = "UPDATE TTickets SET Status = " + status.ToString() + " WHERE Id = " + ticketId;
+                    SqlCommand cmd = new SqlCommand(sql, c);
                     cmd.ExecuteNonQuery();
                 }
                 catch (SqlException)
+                {
+                }
+                finally
+                {
+                    c.Close();
+                }
+            }
+            return 0;
+        }
+
+        public int updateAnswer(string ticketId, string answer)
+        {
+            using (SqlConnection c = new SqlConnection(database))
+            {
+                try
+                {
+                    c.Open();
+                    string sql = "UPDATE TTickets SET Answer = " + answer + " WHERE Id = " + ticketId;
+                    SqlCommand cmd = new SqlCommand(sql, c);
+                    cmd.ExecuteNonQuery();
+                }
+                catch(SqlException)
                 {
                 }
                 finally
@@ -42,7 +64,8 @@ namespace TTService {
                 try
                 {
                     c.Open();
-                    string sql = "UPDATE Supervisors SET TicketId =" + ticketId + " WHERE Id = " + supervisorId;
+                    string sql;
+                    sql = "UPDATE Supervisors SET TicketId =" + ticketId + " WHERE Id = " + supervisorId;
                     SqlCommand cmd = new SqlCommand(sql, c);                                                       // injection protection                                                      // injection protection
                     cmd.ExecuteNonQuery();
                 }

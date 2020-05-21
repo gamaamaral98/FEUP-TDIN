@@ -15,7 +15,11 @@ namespace TTService {
 
         [WebInvoke(Method = "POST", UriTemplate = "/update/{ticketId}", BodyStyle = WebMessageBodyStyle.WrappedRequest, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
-        int updateStatus(string ticketId);
+        int updateStatus(string ticketId, int status);
+
+        [WebInvoke(Method = "POST", UriTemplate = "/update/answer/{ticketId}", BodyStyle = WebMessageBodyStyle.WrappedRequest, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [OperationContract]
+        int updateAnswer(string ticketId, string answer);
 
         [WebGet(UriTemplate="/tickets/{author}", ResponseFormat=WebMessageFormat.Json)]
         [OperationContract]

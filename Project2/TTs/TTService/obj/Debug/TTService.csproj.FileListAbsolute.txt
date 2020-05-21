@@ -5,6 +5,5 @@ C:\Users\Jo\Desktop\TTs\TTService\obj\Debug\TTService.dll
 C:\Users\Jo\Desktop\TTs\TTService\obj\Debug\TTService.pdb
 C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTService\bin\Debug\TTService.dll
 C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTService\bin\Debug\TTService.pdb
-C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTService\obj\Debug\TTService.csprojAssemblyReference.cache
 C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTService\obj\Debug\TTService.dll
 C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTService\obj\Debug\TTService.pdb

@@ -3,6 +3,7 @@ using System.ServiceModel;
 using System.Windows.Forms;
 using TTService;
 using System.Data.SqlClient;
+using System.Net.Mail;
 
 namespace TTClient {
   public partial class Form1 : Form {
@@ -174,8 +175,61 @@ namespace TTClient {
             var supervisorId = (listBox1.SelectedIndex - users.Rows.Count).ToString();
             var ticketId = ticket[0]["Id"].ToString();
 
-            proxy.updateStatus(ticketId);
+            proxy.updateStatus(ticketId, 2);
             proxy.AssignTicket(ticketId, supervisorId);
+        }
+
+        private void button1_Click(object sender, System.EventArgs e)
+        {
+            DataTable tickets = proxy.GetAllTickets();
+            DataTable users = proxy.GetUsers();
+            DataTable supervisors = proxy.GetSupervisors();
+
+            var status = 4;
+            var answer = textBox1.Text;
+
+            var ticket = tickets.Select("ID = " + label2.Text.Substring(7));
+            var ticketId = ticket[0]["Id"].ToString();
+            var ticketAuthorId = ticket[0]["Author"].ToString();
+
+            var supervisorId = (listBox1.SelectedIndex - users.Rows.Count).ToString();
+            var supervisor = supervisors.Select("ID = " + supervisorId);
+            var supervisorEmail = supervisor[0]["Email"].ToString();
+
+            var user = users.Select("ID = " + ticketAuthorId);
+            var userEmail = user[0]["Email"].ToString();;
+
+            //update do status + answer
+            proxy.updateStatus(ticketId, status);
+            proxy.updateAnswer(ticketId, answer);
+
+            //unassign no supervisor
+            proxy.AssignTicket("NULL", supervisorId);
+
+            //enviar email ao worker
+            //sendEmail(supervisorEmail, userEmail, answer);
+           
+        }
+
+        private void sendEmail(string sender, string receiver, string answer)
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+            mail.From = new MailAddress(sender.Trim());
+            mail.To.Add(receiver.Trim());
+            mail.Subject = "Response to problem submitted";
+            mail.Body = answer;
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("username", "password");
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
+            label5.Visible = false;
+            comboBox1.Visible = false;
+            button2.Visible = false;
+            textBox1.Text = "Email sent!";
         }
     }
 
@@ -199,9 +253,13 @@ namespace TTClient {
             return Channel.AssignTicket(ticketId, supervisorId);
         }
 
-        public int updateStatus(string ticketId)
+        public int updateStatus(string ticketId, int status)
         {
-            return Channel.updateStatus(ticketId);
+            return Channel.updateStatus(ticketId, status);
+        }
+        public int updateAnswer(string ticketId, string answer)
+        {
+            return Channel.updateAnswer(ticketId, answer);
         }
 
         public DataTable GetSupervisors()
