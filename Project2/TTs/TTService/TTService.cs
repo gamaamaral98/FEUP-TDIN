@@ -13,40 +13,18 @@ namespace TTService {
             database = String.Format(connection, AppDomain.CurrentDomain.BaseDirectory);
         }
 
-        public int updateStatus(string ticketId, int status)
+        public int updateStatus(string ticketId, int status, string answer)
         {
             using (SqlConnection c = new SqlConnection(database))
             {
                 try
                 {
                     c.Open();
-                    string sql = "UPDATE TTickets SET Status = " + status.ToString() + " WHERE Id = " + ticketId;
+                    string sql = "UPDATE TTickets SET Status = " + status.ToString() + ", Answer = " + "'" + answer + "'" + " WHERE Id = " + ticketId;
                     SqlCommand cmd = new SqlCommand(sql, c);
                     cmd.ExecuteNonQuery();
                 }
                 catch (SqlException)
-                {
-                }
-                finally
-                {
-                    c.Close();
-                }
-            }
-            return 0;
-        }
-
-        public int updateAnswer(string ticketId, string answer)
-        {
-            using (SqlConnection c = new SqlConnection(database))
-            {
-                try
-                {
-                    c.Open();
-                    string sql = "UPDATE TTickets SET Answer = " + answer + " WHERE Id = " + ticketId;
-                    SqlCommand cmd = new SqlCommand(sql, c);
-                    cmd.ExecuteNonQuery();
-                }
-                catch(SqlException)
                 {
                 }
                 finally

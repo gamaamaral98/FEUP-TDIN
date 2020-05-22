@@ -175,7 +175,7 @@ namespace TTClient {
             var supervisorId = (listBox1.SelectedIndex - users.Rows.Count).ToString();
             var ticketId = ticket[0]["Id"].ToString();
 
-            proxy.updateStatus(ticketId, 2);
+            proxy.updateStatus(ticketId, 2, "");
             proxy.AssignTicket(ticketId, supervisorId);
         }
 
@@ -200,8 +200,7 @@ namespace TTClient {
             var userEmail = user[0]["Email"].ToString();;
 
             //update do status + answer
-            proxy.updateStatus(ticketId, status);
-            proxy.updateAnswer(ticketId, answer);
+            proxy.updateStatus(ticketId, status, answer);
 
             //unassign no supervisor
             proxy.AssignTicket("NULL", supervisorId);
@@ -253,13 +252,9 @@ namespace TTClient {
             return Channel.AssignTicket(ticketId, supervisorId);
         }
 
-        public int updateStatus(string ticketId, int status)
+        public int updateStatus(string ticketId, int status, string answer)
         {
-            return Channel.updateStatus(ticketId, status);
-        }
-        public int updateAnswer(string ticketId, string answer)
-        {
-            return Channel.updateAnswer(ticketId, answer);
+            return Channel.updateStatus(ticketId, status, answer);
         }
 
         public DataTable GetSupervisors()
