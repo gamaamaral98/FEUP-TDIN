@@ -15,7 +15,6 @@ C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTClient\bin\Debug\TTClient.exe
 C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTClient\bin\Debug\TTClient.pdb
 C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTClient\bin\Debug\TTService.dll
 C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTClient\bin\Debug\TTService.pdb
-C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTClient\obj\Debug\TTClient.csprojAssemblyReference.cache
 C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTClient\obj\Debug\TTClient.Form1.resources
 C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTClient\obj\Debug\TTClient.Properties.Resources.resources
 C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTClient\obj\Debug\TTClient.csproj.GenerateResource.cache
@@ -35,3 +34,4 @@ C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTClient\obj\Debug\TTClient.cs
 C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTClient\obj\Debug\TTClient.csproj.CopyComplete
 C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTClient\obj\Debug\TTClient.exe
 C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTClient\obj\Debug\TTClient.pdb
+C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTClient\obj\Debug\TTClient.csprojAssemblyReference.cache

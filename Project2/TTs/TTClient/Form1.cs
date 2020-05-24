@@ -23,10 +23,10 @@ namespace TTClient {
       DataTable users = proxy.GetUsers();
       DataTable supervisors = proxy.GetSupervisors();
 
-      //if (!MessageQueue.Exists(@".\private$\myMSMQ"))
-      //{
-      //  MessageQueue.Create(@".\private$\myMSMQ");
-      //}
+      if (!MessageQueue.Exists(@".\private$\myMSMQ"))
+      {
+        MessageQueue.Create(@".\private$\myMSMQ");
+      }
 
       for (k = 0; k < users.Rows.Count; k++)
         listBox1.Items.Add(users.Rows[k][1] + " - Worker");   // Row 0 is empty; the author name is in column 1
@@ -184,17 +184,29 @@ namespace TTClient {
         private void button2_Click(object sender, System.EventArgs e)
         {
             DataTable tickets = proxy.GetAllTickets();
+            DataTable users = proxy.GetUsers();
+            DataTable supervisors = proxy.GetSupervisors();
+
+            var status = 3;
             var ticket = tickets.Select("ID = " + label2.Text.Substring(7));
             // Build Message
             string ticket_id = ticket[0]["Id"].ToString(); ;
-            string author = ticket[0]["Author"].ToString(); 
+            string author = (users.Select("ID = " + ticket[0]["Author"]))[0]["Name"].ToString();
             string problem = ticket[0]["Problem"].ToString();
             string[] message = new string[3] { ticket_id, author, problem };
 
             // Send it to the Message Queue
-            //messageQueue = new MessageQueue(@".\private$\myMSMQ");
-            //messageQueue.Formatter = new XmlMessageFormatter(new Type[] { typeof(String[])});
-            //messageQueue.Send(message);
+            messageQueue = new MessageQueue(@".\private$\mymsmq");
+            messageQueue.Formatter = new XmlMessageFormatter(new Type[] { typeof(String[])});
+            messageQueue.Send(message);
+
+            var supervisorId = (listBox1.SelectedIndex - users.Rows.Count).ToString();
+
+            //update do status + answer
+            proxy.updateStatus(ticket_id, status, "");
+
+            //unassign no supervisor
+            proxy.AssignTicket("NULL", supervisorId);
 
         }
     }

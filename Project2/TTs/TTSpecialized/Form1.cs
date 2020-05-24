@@ -8,57 +8,31 @@ using System.Net.Mail;
 using System.Net.Mime;
 using System.Messaging;
 using System;
+using System.Collections.Generic;
 
 namespace TTSpecialized {
   public partial class Form1 : Form {
-    TTProxy proxy;
-    private SqlConnection con;
-    string msgID = "teste";
-    string msgAuthor = "";
-    string msgProb = "";
-
+        TTProxy proxy;
+        Queue<String[]> Messages = new Queue<String[]>();
+        
         public Form1() {
-      int k;
-
-      InitializeComponent();
-      ListenToMessageQueue();
-
             proxy = new TTProxy();
-      DataTable users = proxy.GetUsers();
-      DataTable supervisors = proxy.GetSupervisors();
 
+            InitializeComponent();
+            ListenToMessageQueue();
 
-        DataTable specializedSupervisors = proxy.GetSpecializedSupervisors();
-
-
-        DataTable tickets = proxy.GetAllTickets();
-
-        var supervisorIndex = 1;
-        var supervisor = supervisors.Select("ID = " + 0.ToString());
-
-        show_Supervisor();
-
-        var ticketId = supervisor[0]["TicketId"];
-        var ticket = tickets.Select("ID = " + ticketId.ToString());
-        label2.Text = "Problem " + ticketId.ToString();
-        label3.Text = "Author: " + (users.Select("ID = " + ticket[0]["Author"]))[0]["Name"];
-        label6.Text = ticket[0]["Problem"].ToString();
-        label4.Text = "Answer: ";
-        label5.Text = "Specialized Supervisor Name:";
-
-        comboBox1.DataSource = specializedSupervisors.DefaultView;
-        comboBox1.DisplayMember = "Name";
-        comboBox1.BindingContext = this.BindingContext;
-
-        panel1.Visible = true;
+            DataTable specializedSupervisors = proxy.GetSpecializedSupervisors();
+            comboBox1.DataSource = specializedSupervisors.DefaultView;
+            comboBox1.DisplayMember = "Name";
+            comboBox1.BindingContext = this.BindingContext;
         }
 
         public void ListenToMessageQueue()
         {
             MessageQueue messageQueue = new MessageQueue();
-            messageQueue.Path = @".\private$\myMSMQ";
-            //messageQueue.ReceiveCompleted += HandleReceivedMessage;
-            //messageQueue.BeginReceive();
+            messageQueue.Path = @".\private$\mymsmq";
+            messageQueue.ReceiveCompleted += HandleReceivedMessage;
+            messageQueue.BeginReceive();
         }
 
         public void HandleReceivedMessage(object obj, ReceiveCompletedEventArgs args)
@@ -79,26 +53,30 @@ namespace TTSpecialized {
                 newMessage.Formatter = new XmlMessageFormatter(new Type[] { typeof(String[]) });
 
                 String[] messageData = (String[])newMessage.Body;
-                msgID = messageData[0];
-                msgAuthor = messageData[1];
-                msgProb = messageData[2];
-
 
                 msgQueue.BeginReceive();
+
+                Messages.Enqueue(messageData);
+
+                if (Messages.Count != 0)
+                {
+                    label3.Visible = true;
+                    label6.Visible = true;
+                    label4.Visible = true;
+                    label5.Visible = true;
+                    textBox1.Visible = true;
+                    comboBox1.Visible = true;
+                    button2.Visible = true;
+
+                    String[] fill = Messages.Peek();
+                    problemId.Text = "Problem " + fill[0];
+                    label3.Text = "Author:" + fill[1];
+                    label6.Text = fill[2];
+                    label4.Text = "Answer:";
+                    label5.Text = "Assign to:";
+                }
             }
         }
-
-        private void show_Supervisor()
-        {
-            label3.Visible = true;
-            label6.Visible = true;
-            label4.Visible = true;
-            label5.Visible = true;
-            button2.Visible = true;
-            comboBox1.Visible = true;
-            textBox1.Visible = true;
-        }
-
 
         private void sendEmail(string sender, string receiver, string answer)
         {
@@ -115,11 +93,6 @@ namespace TTSpecialized {
             mail.Body = answer;
 
             SmtpServer.Send(mail);
-
-            label5.Visible = false;
-            comboBox1.Visible = false;
-            button2.Visible = false;
-            textBox1.Text = "Email sent!";
         }
 
 
@@ -132,7 +105,7 @@ namespace TTSpecialized {
             var status = 4;
             var answer = textBox1.Text;
 
-            var ticket = tickets.Select("ID = " + label2.Text.Substring(7));
+            var ticket = tickets.Select("ID = " + problemId.Text.Substring(7));
             var ticketId = ticket[0]["Id"].ToString();
             var ticketAuthorId = ticket[0]["Author"].ToString();
 
@@ -147,11 +120,43 @@ namespace TTSpecialized {
             proxy.updateStatus(ticketId, status, answer);
 
             //unassign no supervisor
-            proxy.AssignTicket("NULL", supervisorId);
+            proxy.AssignTicket(ticketId, supervisorId);
+
+            Messages.Dequeue();
 
             //enviar email ao worker
             sendEmail(supervisorEmail, userEmail, answer);
+
+            if(Messages.Count != 0)
+            {
+                label3.Visible = true;
+                label6.Visible = true;
+                label4.Visible = true;
+                label5.Visible = true;
+                textBox1.Visible = true;
+                comboBox1.Visible = true;
+
+                String[] fill = Messages.Peek();
+                problemId.Text = "Problem " + fill[0];
+                label3.Text = "Author:" + fill[1];
+                label6.Text = fill[2];
+                label4.Text = "Answer:";
+                label5.Text = "Assign to:";
+                textBox1.Text = "";
+            }
+            else
+            {
+                problemId.Text = "No Tickets available to solve!";
+                label3.Visible = false;
+                label6.Visible = false;
+                label4.Visible = false;
+                label5.Visible = false;
+                textBox1.Visible = false;
+                comboBox1.Visible = false;
+                button2.Visible = false;
+            }
         }
+
     }
 
     // Manual proxy to the service (in alternative to direct HTTP requests)
