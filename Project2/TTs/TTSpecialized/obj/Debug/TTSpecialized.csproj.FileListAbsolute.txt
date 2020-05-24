@@ -1,0 +1,13 @@
+C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTSpecialized\bin\Debug\TTClient.exe.config
+C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTSpecialized\bin\Debug\TTClient.exe
+C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTSpecialized\bin\Debug\TTClient.pdb
+C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTSpecialized\bin\Debug\TTService.dll
+C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTSpecialized\bin\Debug\TTService.pdb
+C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTSpecialized\obj\Debug\TTSpecialized.csprojAssemblyReference.cache
+C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTSpecialized\obj\Debug\TTClient.Properties.Resources.resources
+C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTSpecialized\obj\Debug\TTSpecialized.csproj.GenerateResource.cache
+C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTSpecialized\obj\Debug\TTSpecialized.csproj.CoreCompileInputs.cache
+C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTSpecialized\obj\Debug\TTSpecialized.csproj.CopyComplete
+C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTSpecialized\obj\Debug\TTClient.exe
+C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTSpecialized\obj\Debug\TTClient.pdb
+C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTSpecialized\obj\Debug\TTSpecialized.Form1.resources

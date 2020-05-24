@@ -7,3 +7,9 @@ C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTService\bin\Debug\TTService.dll
 C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTService\bin\Debug\TTService.pdb
 C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTService\obj\Debug\TTService.dll
 C:\Users\Jo\Desktop\FEUP-TDIN\Project2\TTs\TTService\obj\Debug\TTService.pdb
+C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTService\bin\Debug\TTService.dll
+C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTService\bin\Debug\TTService.pdb
+C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTService\obj\Debug\TTService.csprojAssemblyReference.cache
+C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTService\obj\Debug\TTService.csproj.CoreCompileInputs.cache
+C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTService\obj\Debug\TTService.dll
+C:\Users\Francisco\Desktop\FEUP-TDIN\Project2\TTs\TTService\obj\Debug\TTService.pdb
